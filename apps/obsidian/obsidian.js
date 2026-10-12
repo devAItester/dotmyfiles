@@ -184,13 +184,13 @@ async function run({ taskPath }) {
       }
     }
 
-    console.log(`\\nХранилище: ${vaultPath}`);
+    console.log(`\nХранилище: ${vaultPath}`);
     console.log(`Папка конфигурации ОС: ${targetDir}`);
     console.log('Активные настройки app.json:');
     for (const [key, value] of Object.entries(appSettings)) console.log(`  ${key}: ${JSON.stringify(value)}`);
     for (const warning of parsed.warnings) console.warn(`WARNING: ${warning}`);
 
-    const confirm = (await rl.question('\\nУбедись, что Obsidian закрыт. Применить настройки? [y/N]: ')).trim().toLowerCase();
+    const confirm = (await rl.question('\nУбедись, что Obsidian закрыт. Применить настройки? [y/N]: ')).trim().toLowerCase();
     if (confirm !== 'y' && confirm !== 'yes' && confirm !== 'д' && confirm !== 'да') {
       console.log('Отменено. Файлы не изменены.');
       return;
