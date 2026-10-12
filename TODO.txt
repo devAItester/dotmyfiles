@@ -1,0 +1,14 @@
+TODO
+====
+
+Runtime verification
+- Run the full workflow on Windows with the actual Obsidian registry and a test vault.
+- Run the full workflow on Arch with the actual Obsidian registry and a test vault.
+- Verify cancellation leaves the vault unchanged.
+- Verify an existing target app.json is backed up and only enabled keys change.
+- Verify the manual Override config folder step and the shared-vault workflow.
+
+Follow-up implementation
+- Add a checker for whether the documented Obsidian keys and allowed values remain current against official documentation.
+- Finalize the new-vault cleanup sequence for the default .obsidian folder; never delete it automatically.
+- Add automated tests later. Test-suite work is intentionally deferred for now.
