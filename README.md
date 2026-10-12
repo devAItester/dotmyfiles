@@ -20,7 +20,7 @@ node main.js
 - Creates the OS-specific configuration folder (`.obsidian-win`, `.obsidian-arch` or `.obsidian-mac`) by copying `.obsidian` when available.
 - Updates only enabled `app.json` keys. Existing `app.json` is backed up before it is changed. The default `.obsidian` folder is not deleted.
 
-The script asks for confirmation before writing. Close Obsidian first.
+The script checks whether Obsidian is running and asks you to close it if needed. It asks for confirmation before writing.
 
 ### Finish setup in Obsidian
 
@@ -34,4 +34,4 @@ Do not delete the old `.obsidian` folder until you have confirmed that Obsidian 
 
 The root README is the service front page. `main.md` connects tasks; each task has a Markdown settings source and a same-named JavaScript handler. Shared property registries define which settings can be changed.
 
-Keep the implementation small and split by responsibility. The `web/` directory is reserved for web-facing Markdown if a concrete need appears. Automated tests are deferred for now.
+Keep the implementation small and split by responsibility. The `web/` directory is reserved for web-facing Markdown if a concrete need appears. Remaining runtime checks and follow-up work are tracked in [TODO.txt](TODO.txt). Automated tests are deferred for now.
