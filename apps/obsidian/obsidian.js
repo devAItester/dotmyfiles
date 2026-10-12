@@ -42,16 +42,25 @@ function detectOsKey() {
   throw new Error(`ОС ${process.platform} пока не поддерживается задачей Obsidian.`);
 }
 
-function findRegistry() {
+function findRegistries() {
   const candidates = readRegistryCandidates();
   const found = candidates.filter((candidate) => fs.existsSync(candidate));
   if (found.length === 0) {
     throw new Error(`Реестр Obsidian не найден. Проверены пути:\n${candidates.join('\n')}`);
   }
-  if (found.length > 1) {
-    throw new Error(`Найдено несколько реестров Obsidian; выбери нужный вручную:\n${found.join('\n')}`);
+  return found;
+}
+
+async function chooseRegistry(registries, rl) {
+  if (registries.length === 1) return registries[0];
+  console.log('Найдено несколько реестров Obsidian:');
+  registries.forEach((registry, index) => console.log(`${index + 1}. ${registry}`));
+  const answer = (await rl.question('Номер реестра [1]: ')).trim();
+  const selected = answer === '' ? 1 : Number(answer);
+  if (!Number.isInteger(selected) || selected < 1 || selected > registries.length) {
+    throw new Error(`Введи номер от 1 до ${registries.length}.`);
   }
-  return found[0];
+  return registries[selected - 1];
 }
 
 function parsePropertyRegistry(filePath, delimiter = '|') {
@@ -157,15 +166,16 @@ async function run({ taskPath }) {
   );
   if (Object.keys(appSettings).length === 0) throw new Error('В obsidian.md нет активных ключей app.json.');
 
-  const registryPath = findRegistry();
-  const registry = JSON.parse(fs.readFileSync(registryPath, 'utf8'));
-  const vaults = Object.values(registry.vaults || {})
-    .filter((vault) => vault && typeof vault.path === 'string' && vault.path.length > 0);
+  const registryPaths = findRegistries();
 
   console.log(`ОС: ${osKey}`);
-  console.log(`Реестр: ${registryPath}`);
   const rl = askInterface();
   try {
+    const registryPath = await chooseRegistry(registryPaths, rl);
+    const registry = JSON.parse(fs.readFileSync(registryPath, 'utf8'));
+    const vaults = Object.values(registry.vaults || {})
+      .filter((vault) => vault && typeof vault.path === 'string' && vault.path.length > 0);
+    console.log(`Реестр: ${registryPath}`);
     const vaultPath = path.resolve(await chooseVault(vaults, rl));
     if (!fs.existsSync(vaultPath) || !fs.statSync(vaultPath).isDirectory()) {
       throw new Error(`Путь выбранного хранилища недоступен: ${vaultPath}`);
