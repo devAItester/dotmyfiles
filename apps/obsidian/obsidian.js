@@ -60,8 +60,14 @@ function parsePropertyRegistry(filePath, delimiter = '|') {
   for (const rawLine of source.split(/\r?\n/)) {
     const line = rawLine.trim();
     if (!line || line.startsWith('#')) continue;
-    const [key, type, ...rest] = line.split(delimiter);
-    if (key && type) result.set(key.trim(), { type: type.trim(), description: rest.join(delimiter).trim() });
+    const [key, type, values, ...rest] = line.split(delimiter);
+    if (key && type) {
+      result.set(key.trim(), {
+        type: type.trim(),
+        values: values && values.trim() !== '-' ? values.split(',').map((value) => value.trim()) : [],
+        description: rest.join(delimiter).trim(),
+      });
+    }
   }
   return result;
 }
@@ -96,15 +102,18 @@ function parseSettings(source, appProperties, obsidianProperties) {
     try {
       value = JSON.parse(rawValue);
     } catch {
-      if (property.type === 'string') value = rawValue;
+      if (property.type === 'string' || property.type === 'enum') value = rawValue;
       else throw new Error(`Некорректное значение для ${key}: ${rawValue}`);
     }
 
     if (property.type === 'boolean' && typeof value !== 'boolean') {
       throw new Error(`${key} должен иметь значение true или false.`);
     }
-    if (property.type === 'string' && typeof value !== 'string') {
-      throw new Error(`${key} должен иметь строковое значение в кавычках.`);
+    if ((property.type === 'string' || property.type === 'enum') && typeof value !== 'string') {
+      throw new Error(`${key} должен иметь строковое значение.`);
+    }
+    if (property.type === 'enum' && !property.values.includes(value)) {
+      throw new Error(`${key}: недопустимое значение ${JSON.stringify(value)}. Допустимо: ${property.values.join(', ')}.`);
     }
     if (key.startsWith('configDir.') && (!value.startsWith('.') || value === '.' || /[\\/]/.test(value))) {
       throw new Error(`${key} должен содержать имя папки, начинающееся с точки, без разделителей пути.`);
