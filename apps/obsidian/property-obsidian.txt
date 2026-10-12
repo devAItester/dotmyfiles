@@ -1,10 +1,10 @@
 # Ключи app.json, которые разрешено менять обработчику.
 # Официальная документация: https://help.obsidian.md/Files+and+folders/Configuration+folder
-# Формат: ключ|тип|описание|источник
+# Формат: ключ|тип|допустимые значения или -|описание|источник
 
-useMarkdownLinks|boolean|Использовать Markdown-ссылки вместо Wiki-ссылок|https://help.obsidian.md/Linking+notes+and+files/Internal+links
-newLinkFormat|string|Формат создаваемых внутренних ссылок|https://help.obsidian.md/Linking+notes+and+files/Internal+links
-alwaysUpdateLinks|boolean|Автоматически обновлять ссылки при переименовании файлов|https://help.obsidian.md/Linking+notes+and+files/Internal+links
-readableLineLength|boolean|Ограничивать длину строки в редакторе|https://help.obsidian.md/Editing+and+formatting/Basic+formatting+syntax
-newFileLocation|string|Место создания новых заметок|https://help.obsidian.md/Files+and+folders/Manage+notes
-newFileFolderPath|string|Папка для новых заметок, если newFileLocation=folder|https://help.obsidian.md/Files+and+folders/Manage+notes
+useMarkdownLinks|boolean|-|Использовать Markdown-ссылки вместо Wiki-ссылок|https://help.obsidian.md/Linking+notes+and+files/Internal+links
+newLinkFormat|enum|shortest,relative,absolute|Формат создаваемых внутренних ссылок|https://help.obsidian.md/Linking+notes+and+files/Internal+links
+alwaysUpdateLinks|boolean|-|Автоматически обновлять ссылки при переименовании файлов|https://help.obsidian.md/Linking+notes+and+files/Internal+links
+readableLineLength|boolean|-|Ограничивать длину строки в редакторе|https://help.obsidian.md/Editing+and+formatting/Basic+formatting+syntax
+newFileLocation|enum|current,folder,root|Место создания новых заметок|https://help.obsidian.md/Files+and+folders/Manage+notes
+newFileFolderPath|string|-|Папка для новых заметок, если newFileLocation=folder|https://help.obsidian.md/Files+and+folders/Manage+notes
