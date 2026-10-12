@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const os = require('node:os');
 const readline = require('node:readline/promises');
+const { spawnSync } = require('node:child_process');
 const { stdin, stdout } = require('node:process');
 
 const PROPERTY_FILE = 'property-obsidian.txt';
@@ -150,6 +151,41 @@ function timestamp() {
   return new Date().toISOString().replace(/[:.]/g, '-');
 }
 
+function checkObsidianProcess() {
+  if (process.platform === 'win32') {
+    const result = spawnSync('tasklist', ['/FI', 'IMAGENAME eq Obsidian.exe', '/NH'], {
+      encoding: 'utf8',
+      windowsHide: true,
+    });
+    if (result.error) return null;
+    return /\\bObsidian\\.exe\\b/i.test(result.stdout || '');
+  }
+
+  let checked = false;
+  for (const processName of ['Obsidian', 'obsidian']) {
+    const result = spawnSync('pgrep', ['-x', processName], { encoding: 'utf8' });
+    if (result.error && result.error.code === 'ENOENT') continue;
+    checked = true;
+    if (result.status === 0) return true;
+  }
+  return checked ? false : null;
+}
+
+async function ensureObsidianClosed(rl) {
+  let status = checkObsidianProcess();
+  if (status === true) {
+    console.log('Обнаружен работающий Obsidian. Закрой его, затем нажми Enter.');
+    await rl.question('');
+    status = checkObsidianProcess();
+    if (status === true) throw new Error('Obsidian всё ещё запущен. Закрой его и запусти скрипт повторно.');
+  } else if (status === null) {
+    const answer = (await rl.question('Не удалось проверить процесс автоматически. Obsidian закрыт? [y/N]: ')).trim().toLowerCase();
+    if (!['y', 'yes', 'д', 'да'].includes(answer)) {
+      throw new Error('Закрой Obsidian перед изменением конфигурации.');
+    }
+  }
+}
+
 async function run({ taskPath }) {
   const taskDir = path.dirname(taskPath);
   const osKey = detectOsKey();
@@ -209,7 +245,8 @@ async function run({ taskPath }) {
     for (const [key, value] of Object.entries(appSettings)) console.log(`  ${key}: ${JSON.stringify(value)}`);
     for (const warning of parsed.warnings) console.warn(`WARNING: ${warning}`);
 
-    const confirm = (await rl.question('\nУбедись, что Obsidian закрыт. Применить настройки? [y/N]: ')).trim().toLowerCase();
+    await ensureObsidianClosed(rl);
+    const confirm = (await rl.question('\nПрименить настройки? [y/N]: ')).trim().toLowerCase();
     if (confirm !== 'y' && confirm !== 'yes' && confirm !== 'д' && confirm !== 'да') {
       console.log('Отменено. Файлы не изменены.');
       return;
