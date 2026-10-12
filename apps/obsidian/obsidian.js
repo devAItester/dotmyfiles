@@ -158,7 +158,7 @@ function checkObsidianProcess() {
       windowsHide: true,
     });
     if (result.error) return null;
-    return /\\bObsidian\\.exe\\b/i.test(result.stdout || '');
+    return /\bObsidian\.exe\b/i.test(result.stdout || '');
   }
 
   let checked = false;
