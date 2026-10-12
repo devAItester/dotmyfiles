@@ -1,0 +1,7 @@
+# Общие свойства задачи Obsidian
+# Справка по формату: https://help.obsidian.md/Configuration+folder
+# Имя свойства в начале строки; значение отделяется двоеточием.
+
+configDir.win|string|Имя папки конфигурации для Windows; должна начинаться с точки.
+configDir.arch|string|Имя папки конфигурации для Arch Linux; должна начинаться с точки.
+configDir.mac|string|Имя папки конфигурации для macOS; должна начинаться с точки.
