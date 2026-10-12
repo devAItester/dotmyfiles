@@ -1,30 +1,37 @@
 # dotmyfiles
 
-## Windows · Obsidian vault selector
+## Obsidian · per-OS settings
 
-Download [find-obsidian.js](https://raw.githubusercontent.com/devAItester/dotmyfiles/main/sh/find-obsidian.js) to list the vaults registered in Obsidian on Windows and choose one by number.
+[Download the project ZIP](https://github.com/devAItester/dotmyfiles/archive/refs/heads/main.zip) and extract it.
 
-**Requirements:** Node.js. No npm packages or administrator rights are required.
+**Requirement:** [Node.js 18 or newer](https://nodejs.org/en/download). No npm packages are required.
 
-**Run** from the folder where you saved the file:
+Open a terminal in the extracted `dotmyfiles-main` folder and run:
 
 ```bash
-node find-obsidian.js
+node main.js
 ```
 
-The script reads `%APPDATA%\obsidian\obsidian.json`, prints the registered vault paths, and prompts for a number. Press Enter to choose the first vault. It prints the selected path; it does not modify Obsidian settings or open the vault.
+### What it does
+
+- Reads enabled task paths from `main.md`; comment out a line to disable that task.
+- The Obsidian task reads `apps/obsidian/obsidian.md` and accepts only keys listed in `apps/obsidian/property-obsidian.txt`.
+- Finds Obsidian's local registry, lists registered vaults, and asks which one to configure.
+- Creates the OS-specific configuration folder (`.obsidian-win`, `.obsidian-arch` or `.obsidian-mac`) by copying `.obsidian` when available.
+- Updates only enabled `app.json` keys. Existing `app.json` is backed up before it is changed. The default `.obsidian` folder is not deleted.
+
+The script asks for confirmation before writing. Close Obsidian first.
+
+### Finish setup in Obsidian
+
+After the script finishes, open the selected vault and go to **Settings → Files and links → Override config folder**. Enter the reported folder name and restart Obsidian. The script does not change this application-level setting itself.
+
+Do not delete the old `.obsidian` folder until you have confirmed that Obsidian is using the new folder.
 
 ---
 
-## Project README
+## Project
 
-Tools and configuration files for managing dotfiles.
+The root README is the service front page. `main.md` connects tasks; each task has a Markdown settings source and a same-named JavaScript handler. Shared property registries define which settings can be changed.
 
-### Structure and scope
-
-- `README.md` is the project front page and the entry point for downloads and usage instructions.
-- `sh/` contains small scripts with one clear responsibility.
-- `web/` is reserved for web-facing Markdown if a concrete need appears. A separate website or web UI is not planned without such a need.
-- Automated tests are deferred; do not spend current development time building a test suite.
-
-Keep the implementation small and focused. Prefer known paths and explicit inputs over filesystem-wide discovery.
+Keep the implementation small and split by responsibility. The `web/` directory is reserved for web-facing Markdown if a concrete need appears. Automated tests are deferred for now.
