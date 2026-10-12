@@ -165,37 +165,44 @@ async function run({ taskPath }) {
     const targetDir = path.join(vaultPath, configDirName);
     const defaultDir = path.join(vaultPath, '.obsidian');
     const appJsonPath = path.join(targetDir, 'app.json');
-    console.log(`\nХранилище: ${vaultPath}`);
+    const targetExists = fs.existsSync(targetDir);
+    const defaultExists = fs.existsSync(defaultDir) && fs.statSync(defaultDir).isDirectory();
+    const sourceAppJsonPath = targetExists
+      ? appJsonPath
+      : (defaultExists ? path.join(defaultDir, 'app.json') : null);
+
+    // Validate the source JSON before creating or copying any configuration folder.
+    let current = {};
+    if (sourceAppJsonPath && fs.existsSync(sourceAppJsonPath)) {
+      try {
+        current = JSON.parse(fs.readFileSync(sourceAppJsonPath, 'utf8'));
+      } catch (error) {
+        throw new Error(`Не удалось прочитать ${sourceAppJsonPath}: ${error.message}`);
+      }
+      if (!current || typeof current !== 'object' || Array.isArray(current)) {
+        throw new Error(`${sourceAppJsonPath} должен содержать JSON-объект.`);
+      }
+    }
+
+    console.log(`\\nХранилище: ${vaultPath}`);
     console.log(`Папка конфигурации ОС: ${targetDir}`);
     console.log('Активные настройки app.json:');
     for (const [key, value] of Object.entries(appSettings)) console.log(`  ${key}: ${JSON.stringify(value)}`);
     for (const warning of parsed.warnings) console.warn(`WARNING: ${warning}`);
 
-    const confirm = (await rl.question('\nУбедись, что Obsidian закрыт. Применить настройки? [y/N]: ')).trim().toLowerCase();
+    const confirm = (await rl.question('\\nУбедись, что Obsidian закрыт. Применить настройки? [y/N]: ')).trim().toLowerCase();
     if (confirm !== 'y' && confirm !== 'yes' && confirm !== 'д' && confirm !== 'да') {
       console.log('Отменено. Файлы не изменены.');
       return;
     }
 
-    if (!fs.existsSync(targetDir)) {
-      if (fs.existsSync(defaultDir) && fs.statSync(defaultDir).isDirectory()) {
+    if (!targetExists) {
+      if (defaultExists) {
         fs.cpSync(defaultDir, targetDir, { recursive: true, errorOnExist: true, force: false });
         console.log(`Создана копия ${path.basename(defaultDir)} → ${configDirName}.`);
       } else {
         fs.mkdirSync(targetDir, { recursive: true });
         console.log(`Создана папка ${configDirName}.`);
-      }
-    }
-
-    let current = {};
-    if (fs.existsSync(appJsonPath)) {
-      try {
-        current = JSON.parse(fs.readFileSync(appJsonPath, 'utf8'));
-      } catch (error) {
-        throw new Error(`Не удалось прочитать ${appJsonPath}: ${error.message}`);
-      }
-      if (!current || typeof current !== 'object' || Array.isArray(current)) {
-        throw new Error(`${appJsonPath} должен содержать JSON-объект.`);
       }
     }
 
