@@ -11,37 +11,58 @@
 страницы для скачивания скриптов:  
 - [Obsidian](https://github.com/devAItester/dotmyfiles/blob/main/apps/obsidian/obsidian.js)
 - next app
-- ...
+- ...  
+<details>
+  <summary>🗀 dotmyfiles</summary>
+  <br>
+
+```yaml
+[root]/
+├── apps/                      # Комментарий к первой теме
+│   ├── лист-1.md                # Описание листа 1
+│   ├── лист-2.md                # Описание листа 2
+│   └── подтема/                 # Вложенная подпапка
+│       ├── лист-3.md            # Что лежит внутри подтемы
+│       └── лист-4.md            # Еще один документ
+└── scrypts/                      # Комментарий ко второй теме
+    ├── лист-5.md
+    └── лист-6.md
+```
+</details>
+<details>
+  <summary>🗁 faq</summary>
+<details>
+  <summary>как скачать Node.JS</summary>
+<details">
+  <summary>как ...</summary>
+</details>
+</details>
 
 
 
 ---
 # draft:
 
+<details>
+  <summary>🗁 faq</summary>
+  <br>
+<details>
+  <summary>как скачать Node.JS</summary>
+* [[Лист 5]]
+* [[Лист 6]]
+  <details">
+    <summary>как ...</summary>
+* [[Лист 7]]
+* [[Лист 8]]
+  </details>
+</details>
+
+
 ``app.txt`` содержит параметры, которые надо изменить в настройках приложения на машине пользователя  
 
 ``key.txt`` содержит список актуальных параметров приложения
 
 ---
-<details>
-  <summary>🗀 структура</summary>
-  <br>
-
-```yaml
-мой-проект/
-├── тема 1/                      # Комментарий к первой теме
-│   ├── лист-1.md                # Описание листа 1
-│   ├── лист-2.md                # Описание листа 2
-│   └── подтема/                 # Вложенная подпапка
-│       ├── лист-3.md            # Что лежит внутри подтемы
-│       └── лист-4.md            # Еще один документ
-└── тема 2/                      # Комментарий ко второй теме
-    ├── лист-5.md
-    └── лист-6.md
-```
-
-</details>
-
 Linux/macOS:  tree -N  
 Windows:      tree /F   
 
