@@ -24,7 +24,7 @@
 
 ---
 <details>
-  <summary>🗀 <b>структура</b></summary>
+  <summary>🗀 структура</summary>
   <br>
 
 ```yaml
