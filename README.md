@@ -1,17 +1,29 @@
 `dotmy` скрипт для локальной настройки приложений "в один клик"
 
 `app.js` ищет файлы настроек приложения и  
-изменяет параметры на заданные в `app.txt`
+изменяет в них параметры на заданные в `app.txt`
 
 для использования скрипта пользователю потребуется:  
-- скачать и установить `Node.JS`  
-- скачать и запустить в терминале скрипт командой node app.js``
-- вводить номера предлагаемых вариантов и нажимать `Enter`
+- скачать и установить `node.js`  
+- скачать и запустить в терминале скрипт командой `node app.js`
+- вводить номера предлагаемых вариантов и нажимать `enter`
 
-страница для скачивания [Node.JS](https://nodejs.org/en/download)  
-страницы для скачивания скриптов:  
-- [Obsidian](https://github.com/devAItester/dotmyfiles/blob/main/apps/obsidian/obsidian.js)
+ссылка для скачивания [node.js](https://nodejs.org/en/download)  
+ссылки для скачивания скриптов:
+- [dotmy](/dotmy.js)
+- [Obsidian](/apps/obsidian/obsidian.js)
 - next app
+- ... 
+```shell
+[niri](https://github.com/niri-wm/niri/wiki/Configuration%3A-Introduction)
+[foot](https://codeberg.org/dnkl/foot)
+[alacritty](https://github.com/alacritty/alacritty/blob/master/alacritty/src/config/mod.rs)
+[yazi](https://github.com/sxyazi/yazi/blob/main/yazi-config/preset/yazi-default.toml)
+[micro](https://github.com/micro-editor/micro/blob/master/runtime/help/options.md)
+[zed](https://github.com/zed-industries/zed/blob/main/assets/settings/default.json)
+[obsidian](https://github.com/devAItester/dotmyfiles/blob/main/apps/obsidian/obsidian.js)
+```
+
 - ...  
 <details>
   <summary>🗀 dotmyfiles</summary>
@@ -42,6 +54,18 @@
 
 
 ---
+```shell
+[niri](https://github.com/niri-wm/niri/wiki/Configuration%3A-Introduction)
+[foot](https://codeberg.org/dnkl/foot)
+[alacritty](https://github.com/alacritty/alacritty/blob/master/alacritty/src/config/mod.rs)
+[yazi](https://github.com/sxyazi/yazi/blob/main/yazi-config/preset/yazi-default.toml)
+[micro](https://github.com/micro-editor/micro/blob/master/runtime/help/options.md)
+[zed](https://github.com/zed-industries/zed/blob/main/assets/settings/default.json)
+[obsidian](https://github.com/devAItester/dotmyfiles/blob/main/apps/obsidian/obsidian.js)
+```
+
+
+
 # draft:
 
 <details>
@@ -97,6 +121,102 @@ Windows:      tree /F
 
 ## 💡 Как это работает:
 ## 📌 Готовый README.md
+
+---
+micro    https://github.com/micro-editor/micro/blob/master/runtime/help/options.md
+zed    https://github.com/zed-industries/zed/blob/main/assets/settings/default.json
+
+
+vscode    https://github.com/microsoft/vscode-docs/blob/main/docs/reference/default-settings.md
+neovim    https://neovim.io/doc/user/options.html
+helix    https://docs.helix-editor.com/configuration.html
+
+
+
+`download → convert-flat → manual-select` 
+
+## 1. IDE и текстовые редакторы
+
+```
+ide    zed    https://github.com/zed-industries/zed/blob/main/assets/settings/default.json
+ide    vscode    https://github.com/microsoft/vscode-docs/blob/main/docs/reference/default-settings.md
+editor    micro    https://github.com/micro-editor/micro/blob/master/runtime/help/options.md
+editor    neovim    https://neovim.io/doc/user/options.html
+editor    helix    https://docs.helix-editor.com/configuration.html
+```
+
+## 2. Терминалы
+
+```
+terminal    foot    https://codeberg.org/dnkl/foot
+terminal    kitty    https://sw.kovidgoyal.net/kitty/conf/
+terminal    alacritty    https://github.com/alacritty/alacritty/blob/master/alacritty/src/config/mod.rs
+terminal    wezterm    https://wezfurlong.org/wezterm/config/files.html
+```
+
+## 3. Оконный менеджер и композитор
+
+```
+compositor    niri    https://github.com/niri-wm/niri/wiki/Configuration%3A-Introduction
+compositor    sway    https://man.archlinux.org/man/sway.5.en
+compositor    hyprland    https://wiki.hypr.land/Configuring/
+```
+
+## 4. Лаунчеры приложений
+
+```
+launcher    fuzzel    https://manpages.debian.org/trixie/fuzzel/fuzzel.ini.5.en.html
+launcher    rofi    https://github.com/davatorium/rofi/blob/next/CONFIG.md
+```
+
+## 5. Файловые менеджеры
+
+```
+file-manager    yazi    https://github.com/sxyazi/yazi/blob/main/yazi-config/preset/yazi-default.toml
+file-manager    yazi-keymap    https://github.com/sxyazi/yazi/blob/main/yazi-config/preset/keymap-default.toml
+file-manager    ranger    https://github.com/ranger/ranger
+file-manager    lf    https://github.com/gokcehan/lf
+file-manager    nnn    https://github.com/jarun/nnn
+```
+
+
+## 6. Заметки и браузеры
+
+```
+notes    obsidian    недоступно
+browser    firefox    недоступно
+browser    chromium    https://www.chromium.org/developers/
+```
+
+## Что я бы взял в первую очередь
+
+| Приоритет | Приложение | Почему                                                                  |
+| --------- | ---------- | ----------------------------------------------------------------------- |
+| 1         | Zed        | Готовый JSON, удобно конвертировать                                     |
+| 2         | VS Code    | Есть полный JSON настроек по умолчанию                                  |
+| 3         | Micro      | Простой список параметров и значений                                    |
+| 4         | Yazi       | Готовые конфиги, отдельно настройки и клавиши                           |
+| 5         | Rofi       | Можно получить конфиг из установленного приложения                      |
+| 6         | Niri       | Полезный пример конфигурации в другом формате                           |
+| 7         | Foot       | Документация есть, способ извлечения полного списка ещё нужно проверить |
+
+
+
+
+---
+
+zed    ~/.config/zed/settings.json
+micro    ~/.config/micro/settings.json
+vscode    ~/.config/Code/User/settings.json
+neovim    ~/.config/nvim/
+helix    ~/.config/helix/config.toml
+yazi    ~/.config/yazi/yazi.toml
+yazi    ~/.config/yazi/keymap.toml
+yazi    ~/.config/yazi/theme.toml
+rofi    ~/.config/rofi/config.rasi
+niri    ~/.config/niri/config.kdl
+
+---
 
 ---
 ## Obsidian · per-OS settings
