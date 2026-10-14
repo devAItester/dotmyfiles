@@ -17,7 +17,30 @@
   <br>
 
 ```yaml
-[root]/
+[root]/.
+├── _src
+│   └── src.txt
+├── _dev
+│   └── dev.txt
+├── niri
+│   └── niri.txt
+├── obsidian
+│   └── obsidian.txt
+├── yazi
+│   └── yazi.txt
+└── zed
+     └── zed.txt
+├── dotmy.js
+├── doymy.txt
+└── readmy.md
+
+
+
+
+
+
+
+
 ├── src/                         # 
 │   ├── лист-1.md                # Описание листа 1
 │   ├── лист-2.md                # Описание листа 2
