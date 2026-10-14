@@ -1,32 +1,19 @@
-`dotmy` скрипт для локальной настройки приложений "в один клик"
+`dotmy` скрипт настройки приложений "в один клик"
 
-`app.js` ищет файлы настроек приложения и  
-изменяет в них параметры на заданные в `app.txt`
+`dotmy.js` ищет локальные файлы настроек и предлагает  
+внести изменения заданные в `dotmy.txt`
 
-для использования скрипта пользователю потребуется:  
-- скачать и установить `node.js`  
-- скачать и запустить в терминале скрипт командой `node app.js`
-- вводить номера предлагаемых вариантов и нажимать `enter`
+для использования требуется:  
+скачать и установить `node.js`  
+скачать `dotmy.js` и запустить командой `node dotmy.js`  
+ввести номер из нумерованного списка...
 
 ссылка для скачивания [node.js](https://nodejs.org/en/download)  
-ссылки для скачивания скриптов:
-- [dotmy](/dotmy.js)
-- [Obsidian](/apps/obsidian/obsidian.js)
-- next app
-- ... 
-```shell
-[niri](https://github.com/niri-wm/niri/wiki/Configuration%3A-Introduction)
-[foot](https://codeberg.org/dnkl/foot)
-[alacritty](https://github.com/alacritty/alacritty/blob/master/alacritty/src/config/mod.rs)
-[yazi](https://github.com/sxyazi/yazi/blob/main/yazi-config/preset/yazi-default.toml)
-[micro](https://github.com/micro-editor/micro/blob/master/runtime/help/options.md)
-[zed](https://github.com/zed-industries/zed/blob/main/assets/settings/default.json)
-[obsidian](https://github.com/devAItester/dotmyfiles/blob/main/apps/obsidian/obsidian.js)
-```
+ссылкa для скачивания [dotmy.js](/dotmy.js)
 
 - ...  
 <details>
-  <summary>🗀 dotmyfiles</summary>
+  <summary>🗀 dotmy</summary>
   <br>
 
 ```yaml
