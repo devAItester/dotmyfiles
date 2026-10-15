@@ -18,6 +18,30 @@
 
 ```yaml
 [root]/.
+├── _dev/
+│   └── _dev.txt*
+├── niri/
+│   └── niri.txt*
+├── obsidian/
+│   └── obsidian.txt*
+├── _src/
+│   └── src.txt*
+├── web/
+├── yazi/
+│   └── yazi.txt*
+├── zed/
+│   └── zed.txt*
+├── dotmy.js*
+├── doymy.txt*
+├── main.js*
+├── main.md*
+├── README.md*
+├── readmy.md*
+└── TODO.txt*
+
+
+
+
 ├── _src
 │   └── src.txt
 ├── _dev
